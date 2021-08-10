@@ -14,9 +14,9 @@ void EnterInput_CalFactorial()
 {
 	int input = 0;
 	do {
-		printf("Nhap so nguyen duong: \n");
+		printf("Nhap so nguyen duong <20: \n");
 		scanf("%d", &input);
-		if (input <= 0)
+		if (input <= 0 || input>=20)
 		{
 			printf("==============Nhap Lai============== \n");
 		}
@@ -24,7 +24,7 @@ void EnterInput_CalFactorial()
 		{
 			printf("Ket qua cua tinh %d! = %d",input, Factorial(input));
 		}
-	} while (input<=0);
+	} while (input<=0 || input >=20);
 }
 
 int main()
