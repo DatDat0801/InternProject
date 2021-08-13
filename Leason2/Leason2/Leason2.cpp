@@ -3,11 +3,12 @@
 
 #include <stdio.h>
 
-int Factorial(int n)
+unsigned long long int Factorial(int n)
 {
-	if (n == 1)
-		return 1;
-	return n * Factorial(n - 1);
+	unsigned long long int tmp = 1;
+	for (int i = 1; i <= n; i++)
+		tmp *= i;
+	return tmp;
 }
 
 void EnterInput_CalFactorial()
@@ -22,7 +23,7 @@ void EnterInput_CalFactorial()
 		}
 		else
 		{
-			printf("Ket qua cua tinh %d! = %d",input, Factorial(input));
+			printf("Ket qua cua tinh %d! = %lld",input, Factorial(input));
 		}
 	} while (input<=0 || input >=20);
 }
