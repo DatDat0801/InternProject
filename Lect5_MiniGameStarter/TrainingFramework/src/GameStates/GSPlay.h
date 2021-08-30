@@ -1,11 +1,12 @@
 #pragma once
 #include "GameStateBase.h"
-
+#include <vector>
 class Sprite2D;
 class Sprite3D;
 class Text;
 class GameButton;
 class AnimationSprite;
+class Bullet;
 
 class GSPlay :
 	public GameStateBase
@@ -33,5 +34,7 @@ private:
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	int keyPressed = 0;
 	std::shared_ptr<Sprite2D>		m_player;
+	std::vector<std::shared_ptr<Bullet>> m_bullets;
+	bool shooted = false;
 };
 

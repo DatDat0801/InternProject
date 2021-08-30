@@ -107,36 +107,45 @@
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Nvidia|Win32'">
     <OutDir>$(SolutionDir)\BIN-Nvidia\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-ATI|Win32'">
     <OutDir>$(SolutionDir)\BIN-ATI\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-AMD|Win32'">
     <OutDir>$(SolutionDir)\BIN-AMD\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Angle|Win32'">
     <OutDir>$(SolutionDir)\BIN-Angle\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Nvidia|Win32'">
     <ClCompile>
@@ -303,7 +312,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationSprite.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GSCredit.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
     <ClCompile Include="src\GameObject\Font.cpp" />
@@ -324,7 +335,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationSprite.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="GSCredit.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\GameConfig.h" />
     <ClInclude Include="src\GameManager\ResourceManagers.h" />
@@ -347,8 +360,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\AllegroDeps.1.12.0\build\native\AllegroDeps.targets" Condition="Exists('..\packages\AllegroDeps.1.12.0\build\native\AllegroDeps.targets')" />
+    <Import Project="..\packages\Allegro.5.2.7\build\native\Allegro.targets" Condition="Exists('..\packages\Allegro.5.2.7\build\native\Allegro.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\AllegroDeps.1.12.0\build\native\AllegroDeps.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AllegroDeps.1.12.0\build\native\AllegroDeps.targets'))" />
+    <Error Condition="!Exists('..\packages\Allegro.5.2.7\build\native\Allegro.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Allegro.5.2.7\build\native\Allegro.targets'))" />
+  </Target>
 </Project>
