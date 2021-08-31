@@ -21,6 +21,9 @@
 
 #define MaxY 100
 #define MinY 700
+
+const int MaxBirdSpeed= 300;
+const int MaxPlayerSpeed=400;
 class AnimationSprite;
 class Bullet;
 class Bird;
@@ -75,10 +78,10 @@ void GSPlay::Init()
 	}
 
 	// character
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close2.tga");
-	//shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
-	//m_player = std::make_shared<AnimationSprite>(model, shader, texture, 3, 0.5f);
-	m_player = std::make_shared<Sprite2D>(model, shader, texture);
+	texture = ResourceManagers::GetInstance()->GetTexture("vehicle3.tga");
+	shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
+	m_player = std::make_shared<AnimationSprite>(model, shader, texture, 3, 0.5f);
+	//m_player = std::make_shared<Sprite2D>(model, shader, texture);
 	m_player->Set2DPosition(60, 700);//(float)Globals::screenWidth / 2 , (float)Globals::screenHeight / 2. y->700-100
 	m_player->SetSize(130, 80);
 
@@ -169,8 +172,16 @@ void GSPlay::Update(float deltaTime)
 	m_coutTimeUpSpeed += deltaTime;
 	if (m_coutTimeUpSpeed >= m_timeUpSpeed)
 	{
-		m_speedPlayer += 50;
-		m_speedBird += 20;
+		m_speedPlayer += 10;
+		m_speedBird += 10;
+		if (m_speedPlayer > MaxPlayerSpeed)
+		{
+			m_speedPlayer = MaxPlayerSpeed;
+		}
+		if (m_speedBird > MaxBirdSpeed)
+		{
+			m_speedBird = MaxBirdSpeed;
+		}
 		m_coutTimeUpSpeed = 0;
 	}
 	if (keyPressed & KEY_MOVE_SHOOT)
@@ -276,3 +287,14 @@ void GSPlay::Draw()
 		it->Draw();
 	}
 }
+
+//void GSPlay::CheckColl()
+//{
+//	for (int i = 0; i < m_bullets.size(); i++)
+//	{
+//		for (int j = 0; j < m_birds.size(); i++)
+//		{
+//
+//		}
+//	}
+//}

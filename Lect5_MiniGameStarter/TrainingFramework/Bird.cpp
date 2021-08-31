@@ -13,10 +13,6 @@ Bird::Bird(std::shared_ptr<Model> model, std::shared_ptr<Shader> shader, std::sh
 {}
 
 
-//void Bullet::Move(float deltaTime) {
-//	this->Set2DPosition(this->GetPosition().x + deltaTime * m_speed, this->GetPosition().y);
-//}
-
 void Bird::Init()
 {
 	SetCamera(Application::GetInstance()->GetCamera());

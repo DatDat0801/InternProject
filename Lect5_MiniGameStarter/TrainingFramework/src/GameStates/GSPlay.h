@@ -29,12 +29,14 @@ public:
 	void	Update(float deltaTime) override;
 	void	Draw() override;
 
+	//virtual void	CheckColl();
+
 private:
 	std::shared_ptr<Sprite2D>	m_background;
 	std::shared_ptr<Text>		m_score;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	int keyPressed = 0;
-	std::shared_ptr<Sprite2D>		m_player;
+	std::shared_ptr<AnimationSprite>		m_player;
 	std::vector<std::shared_ptr<Bullet>> m_bullets;
 	std::vector<std::shared_ptr<Bird>> m_birds;
 	bool shooted = false;
