@@ -11,14 +11,19 @@
 #include "GameButton.h"
 #include "../AnimationSprite.h"
 #include "../Bullet.h"
+#include "../Bird.h"
 
 #include <mmsystem.h>
 #include<mciapi.h>
 #pragma comment(lib,"Winmm.lib")
+
+#include<Windows.h>
+
 #define MaxY 100
 #define MinY 700
 class AnimationSprite;
 class Bullet;
+class Bird;
 GSPlay::GSPlay()
 {
 }
@@ -59,6 +64,16 @@ void GSPlay::Init()
 		m_bullets.push_back(_bullet);
 	}
 
+	// bird
+	texture = ResourceManagers::GetInstance()->GetTexture("bullet.tga");
+	for (int i = 0; i < 15; i++)
+	{
+		std::shared_ptr<Bird> _bird = std::make_shared<Bird>(model, shader, texture, 200);
+		_bird->Set2DPosition((float)Globals::screenWidth / 2, 900);
+		_bird->SetSize(30, 30);
+		m_birds.push_back(_bird);
+	}
+
 	// character
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close2.tga");
 	//shader = ResourceManagers::GetInstance()->GetShader("AnimationShader");
@@ -68,10 +83,9 @@ void GSPlay::Init()
 	m_player->SetSize(130, 80);
 
 
-
 	// score
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("Brightly Crush Shine.otf");
+	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("04B_30__.TTF");
 	m_score = std::make_shared< Text>(shader, font, "score: 10", TextColor::RED, 1.0);
 	m_score->Set2DPosition(Vector2(5, 25));
 
@@ -152,15 +166,15 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 int countTime = 0;
 void GSPlay::Update(float deltaTime)
 {
+	m_coutTimeUpSpeed += deltaTime;
+	if (m_coutTimeUpSpeed >= m_timeUpSpeed)
+	{
+		m_speedPlayer += 50;
+		m_speedBird += 20;
+		m_coutTimeUpSpeed = 0;
+	}
 	if (keyPressed & KEY_MOVE_SHOOT)
 	{
-		/*auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");*/
-		//auto texture = ResourceManagers::GetInstance()->GetTexture("btn_close2.tga");
-		//auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-		//m_bullet = std::make_shared<Bullet>(model, shader, texture, 400); //, 20
-		//m_bullet->Set2DPosition(m_player->GetPosition().x, m_player->GetPosition().y);//(float)Globals::screenWidth / 2 , (float)Globals::screenHeight / 2. y->700-100
-		//m_bullet->SetSize(130, 90);
-
 		std::shared_ptr<Bullet> _bullet;
 		for (int i = 0; i < m_bullets.size(); i++)
 		{
@@ -173,6 +187,7 @@ void GSPlay::Update(float deltaTime)
 				countTime = 10;
 				
 				//mciSendString("play mp3", NULL, 0, NULL);
+				//PlaySound(TEXT("Shoot.wav"), NULL, SND_SYNC);
 				break;
 			}
 		}
@@ -182,11 +197,31 @@ void GSPlay::Update(float deltaTime)
 		countTime -= deltaTime;
 	}
 
+	// handle bird
+	m_countInstanceBird += deltaTime;
+	if (m_countInstanceBird >= m_timeInstanceBird)
+	{
+		std::shared_ptr<Bird> _bird;
+		for (int i = 0; i < m_birds.size(); i++)
+		{
+			if (m_birds.at(i)->m_isStop == true)
+			{
+				_bird = m_birds.at(i);
+				_bird->Set2DPosition((float)Globals::screenWidth / 2, 800);//(float)Globals::screenWidth / 2 , (float)Globals::screenHeight / 2. y->700-100
+				_bird->m_speed = m_speedBird;
+				_bird->m_isStop = false;
+				m_birds.at(i)->m_isStop = false;
+				m_countInstanceBird = 0;
+				break;
+			}
+		}
+	}
+
 	if (keyPressed & KEY_MOVE_FORWORD)
 	{
 		if (m_player->GetPosition().y > MaxY)
 		{
-			m_player->Set2DPosition(m_player->GetPosition().x, m_player->GetPosition().y - deltaTime * 200);
+			m_player->Set2DPosition(m_player->GetPosition().x, m_player->GetPosition().y - deltaTime * m_speedPlayer);
 		}
 
 	}
@@ -194,7 +229,7 @@ void GSPlay::Update(float deltaTime)
 	{
 		if (m_player->GetPosition().y < MinY)
 		{
-			m_player->Set2DPosition(m_player->GetPosition().x, m_player->GetPosition().y + deltaTime * 200);
+			m_player->Set2DPosition(m_player->GetPosition().x, m_player->GetPosition().y + deltaTime * m_speedPlayer);
 		}
 	}
 
@@ -213,6 +248,14 @@ void GSPlay::Update(float deltaTime)
 			}
 		}
 	}
+
+	for (int i = 0; i < m_birds.size(); i++)
+	{
+		if (m_birds.at(i)->m_isStop == false)
+		{
+			m_birds.at(i)->Update(deltaTime);
+		}
+	}
 }
 
 void GSPlay::Draw()
@@ -223,6 +266,10 @@ void GSPlay::Draw()
 	for (int i = 0; i < m_bullets.size(); i++)
 	{
 		m_bullets.at(i)->Draw();
+	}
+	for (int i = 0; i < m_birds.size(); i++)
+	{
+		m_birds.at(i)->Draw();
 	}
 	for (auto it : m_listButton)
 	{

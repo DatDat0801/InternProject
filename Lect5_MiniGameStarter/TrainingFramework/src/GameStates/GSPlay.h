@@ -7,6 +7,7 @@ class Text;
 class GameButton;
 class AnimationSprite;
 class Bullet;
+class Bird;
 
 class GSPlay :
 	public GameStateBase
@@ -35,6 +36,19 @@ private:
 	int keyPressed = 0;
 	std::shared_ptr<Sprite2D>		m_player;
 	std::vector<std::shared_ptr<Bullet>> m_bullets;
+	std::vector<std::shared_ptr<Bird>> m_birds;
 	bool shooted = false;
+
+	// sau 1 khoang tgian se tang cac speed nay len
+	float m_speedPlayer = 400;
+	float m_speedBird = 200;
+
+	float m_coutTimeUpSpeed=0;
+	float m_timeUpSpeed = 10;
+
+	float m_countInstanceBird = 0;
+	float m_timeInstanceBird =2; 
+
+	
 };
 

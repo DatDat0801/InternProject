@@ -312,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationSprite.cpp" />
+    <ClCompile Include="Bird.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GSCredit.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -335,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationSprite.h" />
+    <ClInclude Include="Bird.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GSCredit.h" />
     <ClInclude Include="Player.h" />
