@@ -50,8 +50,20 @@ void GSCredit::Init()
 	// discription
 	m_discription = std::make_shared< Text>(shader, font, "Aim to shoot as many birds as possible.", TextColor::RED, 0.6);
 	m_discription->Set2DPosition(Globals::screenWidth / 2 - 220, Globals::screenHeight / 2-70);
-	m_discription2 = std::make_shared< Text>(shader, font, "If you hit a brick, you will lose points.", TextColor::RED, 0.6);
+	m_discription2 = std::make_shared< Text>(shader, font, "If you hit a Bee or miss a Bird", TextColor::RED, 0.6);
 	m_discription2->Set2DPosition(Globals::screenWidth / 2 - 220, Globals::screenHeight / 2 - 50);
+
+	m_guide1 = std::make_shared< Text>(shader, font, "=> you will lose points.", TextColor::RED, 0.6);
+	m_guide1->Set2DPosition(Globals::screenWidth / 2 - 210, Globals::screenHeight / 2 - 30);
+
+	m_guide2 = std::make_shared< Text>(shader, font, "Press 'W' to move up!", TextColor::RED, 0.6);
+	m_guide2->Set2DPosition(Globals::screenWidth / 2 - 210, Globals::screenHeight / 2 - 10);
+
+	m_guide3 = std::make_shared< Text>(shader, font, "Press 'S' to move down!", TextColor::RED, 0.6);
+	m_guide3->Set2DPosition(Globals::screenWidth / 2 - 210, Globals::screenHeight / 2 + 10);
+
+	m_guide4 = std::make_shared< Text>(shader, font, "Press 'J' to move shoot!", TextColor::RED, 0.6);
+	m_guide4->Set2DPosition(Globals::screenWidth / 2 - 210, Globals::screenHeight / 2 + 30);
 }
 
 void GSCredit::Exit()
@@ -105,6 +117,10 @@ void GSCredit::Draw()
 	m_title->Draw();
 	m_discription->Draw();
 	m_discription2->Draw();
+	m_guide1->Draw();
+	m_guide2->Draw();
+	m_guide3->Draw();
+	m_guide4->Draw();
 	for (auto it : m_listButton)
 	{
 		it->Draw();

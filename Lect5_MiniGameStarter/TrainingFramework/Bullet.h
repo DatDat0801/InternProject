@@ -11,9 +11,9 @@ public:
 	void		Update(GLfloat deltatime) override;
 	bool m_isStop;
 
-protected:
 	float m_speed;
 	float m_x;
 	float m_y;
+	float m_radius=10;
 };
 

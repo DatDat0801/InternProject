@@ -31,6 +31,10 @@ private:
 	std::shared_ptr<Text>		m_title;
 	std::shared_ptr<Text>		m_discription;
 	std::shared_ptr<Text>		m_discription2;
+	std::shared_ptr<Text>		m_guide1;
+	std::shared_ptr<Text>		m_guide2;
+	std::shared_ptr<Text>		m_guide3;
+	std::shared_ptr<Text>		m_guide4;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 
 };

@@ -94,7 +94,7 @@ void AnimationSprite::Update(GLfloat deltatime)
 	if (m_currentFrameTime >= m_frameTime)
 	{
 		m_currentFrame++;
-		if (m_currentFrameTime >= m_numFrames)
+		if (m_currentFrame >= m_numFrames)
 		{
 			m_currentFrame = 0;
 		}

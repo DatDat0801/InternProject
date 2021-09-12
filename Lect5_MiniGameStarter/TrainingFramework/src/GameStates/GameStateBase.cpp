@@ -8,6 +8,7 @@
 
 #include "GameStatebase.h"
 #include "../../GSCredit.h"
+#include "../../GSEndGame.h"
 
 GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType)
 {}
@@ -30,6 +31,9 @@ std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)
 		break;
 	case StateType::STATE_CREDIT:
 		gs = std::make_shared<GSCredit>();
+		break;
+	case StateType::STATE_ENDGAME:
+		gs = std::make_shared<GSEndGame>();
 		break;
 	default:
 		break;

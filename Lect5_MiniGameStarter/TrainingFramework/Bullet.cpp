@@ -1,4 +1,5 @@
 #include "Bullet.h"
+
 #include "Shader.h"
 #include "Model.h"
 #include "Camera.h"
@@ -88,7 +89,7 @@ void Bullet::Draw()
 
 void Bullet::Update(GLfloat deltatime)
 {
-	if (this->GetPosition().x<=500)
+	if (this->GetPosition().x<=600)
 	{
 		this->Set2DPosition(this->GetPosition().x + deltatime * m_speed, this->GetPosition().y);
 		m_isStop = false;
