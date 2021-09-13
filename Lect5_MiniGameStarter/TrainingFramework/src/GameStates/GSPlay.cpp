@@ -17,9 +17,10 @@
 #include "../Bird.h"
 #include "../Bee.h"
 #include "../ScoreMng.h"
+#include "../ClassSound.h"
 
-#include <mmsystem.h>
-#include<mciapi.h>
+//#include <mmsystem.h>
+//#include<mciapi.h>
 #pragma comment(lib,"Winmm.lib")
 
 #include<Windows.h>
@@ -238,7 +239,8 @@ void GSPlay::Update(float deltaTime)
 				
 				/*mciSendString("play mp3", NULL, 0, NULL);
 				PlaySound(TEXT("Shoot.wav"), NULL, SND_SYNC);*/
-				
+				s_shoot->PlaySound();
+				//s_shoot->s
 				break;
 			}
 		}
@@ -404,7 +406,7 @@ void GSPlay::CheckColl()
 				{
 					m_bullets.at(i)->Set2DPosition(700, 300);
 					m_bullets.at(i)->m_isStop = true;
-
+					s_birdDie->PlaySound();
 					srand(time(NULL));
 					double tmp = ((double)rand()) / ((double)RAND_MAX);
 					float tmp2 = (float)(rand() % (500 - 200) + 100);
@@ -448,6 +450,7 @@ void GSPlay::CheckColl()
 				{
 					m_bullets.at(i)->Set2DPosition(700, 300);
 					m_bullets.at(i)->m_isStop = true;
+					s_beeDie->PlaySound();
 
 					srand(time(NULL));
 					double tmp = ((double)rand()) / ((double)RAND_MAX);
@@ -465,18 +468,6 @@ void GSPlay::CheckColl()
 					break;
 				}
 			}
-			/*if (m_bees.at(j)->m_isStop == false && m_bees.at(j)->GetPosition().y <= -70)
-			{
-				if (m_health >= 1)
-				{
-					m_health -= 1;
-				}
-				std::string tmps = std::to_string(m_health);
-				std::string sc = "Health: " + tmps;
-				m_heart->SetText(sc);
-				m_bees.at(j)->m_isStop = true;
-				break;
-			}*/
 		}
 	}
 

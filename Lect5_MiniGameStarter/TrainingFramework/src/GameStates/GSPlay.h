@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "GameStateBase.h"
 #include <vector>
+#include <ClassSound.h>
 class Sprite2D;
 class Sprite3D;
 class Text;
@@ -9,6 +10,7 @@ class AnimationSprite;
 class Bullet;
 class Bird;
 class Bee;
+class ClassSound;
 
 class GSPlay :
 	public GameStateBase
@@ -44,6 +46,12 @@ private:
 	std::vector<std::shared_ptr<Bird>> m_birds;
 	std::vector<std::shared_ptr<Bee>> m_bees;
 	bool shooted = false;
+
+	//sound
+	
+	ClassSound* s_shoot = new ClassSound("../Data/Sounds/Shoot.wav");
+	ClassSound* s_birdDie = new ClassSound("../Data/Sounds/birdDie.wav");
+	ClassSound* s_beeDie = new ClassSound("../Data/Sounds/beeDie.wav");
 
 	// sau 1 khoang tgian se tang cac speed nay len
 	float m_speedPlayer = 400;
